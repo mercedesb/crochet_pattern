@@ -1,4 +1,4 @@
-class UnknownStitch < Instruction
+class UnknownInstruction < Instruction
   def initialize(instruction)
     @instruction = instruction
   end
