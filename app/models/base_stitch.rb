@@ -1,4 +1,4 @@
-class Stitch < Instruction
+class BaseStitch < Instruction
   def self.abbrev
     raise NotImplementedError
   end

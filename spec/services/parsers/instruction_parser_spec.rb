@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Parsers::InstructionParser, type: :model do
 
-  describe '#parse_element' do
+  describe '#parse' do
     context 'single stitch' do
     subject { described_class.new('dc') }
       it 'returns correct stitch output for row' do

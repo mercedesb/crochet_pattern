@@ -1,14 +1,16 @@
 # Repeat Instruction Parser
 class Parsers::RepeatInstructionParser < Parsers::BaseParser
-  def initialize(instruction)
-    @instruction = instruction.downcase.strip
+  def initialize(instructions)
+    @instructions = instructions.downcase.strip
   end
 
   def parse
+    return unless self.class.parsable?(@instructions)
+
     instructions = []
      # get capture group
-    repeated_instructions = @instruction.match(self.class.repeated_regex)[1]
-    repeat_times = @instruction[digit_regex]
+    repeated_instructions = @instructions.match(self.class.repeated_regex)[1]
+    repeat_times = @instructions[digit_regex].to_i
 
     parser = ParserFactory.new.get_parser(repeated_instructions)
     instructions << parser.parse

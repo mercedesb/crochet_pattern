@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Stitch, type: :model do
+RSpec.describe BaseStitch, type: :model do
   subject { described_class.new }
   describe "#make" do
     it "raises a NotImplementedError" do
@@ -11,7 +11,7 @@ RSpec.describe Stitch, type: :model do
 
   describe "#abbrev" do
     it "raises a NotImplementedError" do
-      expect { Stitch.abbrev }.to raise_error(NotImplementedError)
+      expect { BaseStitch.abbrev }.to raise_error(NotImplementedError)
     end
   end
 

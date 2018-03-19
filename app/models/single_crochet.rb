@@ -1,4 +1,4 @@
-class SingleCrochet < Stitch
+class SingleCrochet < BaseStitch
   def make
     self.class.abbrev
   end

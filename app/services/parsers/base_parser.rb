@@ -4,7 +4,7 @@ class Parsers::BaseParser
     raise NotImplementedError
   end
 
-  def parsable?(inst)
+  def self.parsable?(inst)
     raise NotImplementedError
   end
 end

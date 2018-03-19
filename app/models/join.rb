@@ -1,5 +1,5 @@
 # is this a stitch, not really... what pattern works here?
-class Join < Stitch
+class Join < BaseStitch
   attr_reader :children
 
   def initialize(children = [])

@@ -1,4 +1,4 @@
-class SlipStitch < Stitch
+class SlipStitch < BaseStitch
   def make
     self.class.abbrev
   end
