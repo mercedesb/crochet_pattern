@@ -7,7 +7,11 @@ class ParserFactory
     elsif Parsers::BasicStitchParser.parsable?(inst)
       Parsers::BasicStitchParser.new(inst)
     else
-      TestParser.new(inst)
+      Parsers::InstructionParser.new(inst)
     end
+  end
+
+  def get_row_parser(inst)
+    Parsers::InstructionParser.new(inst)
   end
 end
