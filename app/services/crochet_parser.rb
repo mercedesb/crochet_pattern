@@ -1,9 +1,7 @@
 class CrochetParser
   def initialize
     # @instructions_str = str.downcase
-    @instructions = []
     @stitch_factory = StitchFactory.new
-    @basic_stitches
   end
 
   def basic_stitch_abbrevs
@@ -22,42 +20,44 @@ class CrochetParser
     /#{composite_stitch_abbrevs.join("|")}/
   end
 
-  def parse
-    until @buffer.eos?
-      skip_spaces
-      parse_element
-    end
-  end
-
-  # Dc, sc, sl st to join
-  # DoubleCrochet, SingleCrochet, Join(SlipStitch)
-  #
-  # sl st to join
-  # dc inc
+  # * Dc Inc * Repeat 2 times, sl st to join
 
   def parse_element(inst)
     instructions = []
     buffer = StringScanner.new(inst)
-    # binding.pry
 
-    while !buffer.eos?
-      current_instruction = buffer.scan_until(/,|$/)
+    until buffer.eos?
+      current_instruction = buffer.scan_until(/#{Tokens::INSTRUCTION_DELIMITER}|$/)
+      next unless current_instruction.present?
+      current_instruction = clean_instruction(current_instruction)
+      # * dc inc * repeat 2 times
       binding.pry
-      if (current_instruction.present?)
-        current_instruction = clean_instruction(current_instruction)
-
+      if is_repeated_instruction(current_instruction)
+        puts 'oops'
+      elsif is_composite_stitch(current_instruction)
         composite_stitch = parse_composite_stitch(current_instruction)
         instructions << composite_stitch unless composite_stitch.nil?
 
-        if basic_stitch_abbrevs.include? current_instruction
-          instructions << @stitch_factory.get_stitch(current_instruction)
-        # else
-        #   instructions << parse_element(current_instruction)
-        end
-      end
+      elsif is_basic_stitch(current_instruction)
+        instructions << @stitch_factory.get_stitch(current_instruction)
 
+      else # explicit unknown instruction
+        instructions << @stitch_factory.get_stitch(current_instruction)
+      end
     end
     instructions
+  end
+
+  def basic_stitch?(inst)
+    basic_stitch_abbrevs.include? inst
+  end
+
+  def composite_stitch?(inst)
+    inst[composite_stitch_regex].present?
+  end
+
+  def repeated_instruction?(_inst)
+    false
   end
 
   def parse_composite_stitch(inst)
@@ -65,10 +65,9 @@ class CrochetParser
     if composite_stitch.present?
       composite_stitch_children = inst.scan(/(.+)#{composite_stitch_regex}/).flatten
 
-      if composite_stitch_children.length > 0
+      unless composite_stitch_children.empty?
         children = []
         composite_stitch_children.each { |child| children = parse_element(child) }
-        binding.pry
         parsed_stitch = @stitch_factory.get_stitch(composite_stitch, children)
       end
     end
@@ -76,46 +75,25 @@ class CrochetParser
   end
 
   def clean_instruction(inst)
-    inst.sub(/,/, '').strip
-  end
-
-       # if (current_instruction.match())
-        # @instructions << parse_element(current_instruction)
-      # else
-      # if buffer.check_until(START_REPEAT)
-      # if buffer.peek(1).match(START_REPEAT)
-      #   buffer.getch
-      #   @instructions << find_content
-      #   # look ahead to how many times to repeat
-      # else
-      #   @instructions << buffer.scan_until(" ")
-
-  #fix this
-  def skip_spaces
-    @buffer.skip(/\s+/)
-  end
-
-  def find_content
-    content = @buffer.scan_until END_REPEAT
-    content.sub(END_REPEAT, "")
+    inst.sub(Tokens::INSTRUCTION_DELIMITER, '').strip
   end
 end
 
 module Tokens
-  START_REPEAT = "[*({[]"
-  END_REPEAT = "[*)}]"
-  INSTRUCTION_DELIMITER = ","
+  START_REPEAT = '[*({[]'.freeze
+  END_REPEAT = '[*)}]'.freeze
+  INSTRUCTION_DELIMITER = ','.freeze
 end
 
 module Stitches
-  BASIC =  %w(
+  BASIC = %w[
     SingleCrochet
     DoubleCrochet
     SlipStitch
-  )
+  ].freeze
 
-  COMPOSITE = %w(
+  COMPOSITE = %w[
     Increase
     Join
-   )
+  ].freeze
 end

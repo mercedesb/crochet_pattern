@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CrochetParser, type: :model do
   subject { described_class.new }
 
-  describe "#parse_element" do
+  fdescribe "#parse_element" do
     context "single stitch" do
        it "returns correct stitch output for row" do
         result = subject.parse_element("dc")
@@ -25,12 +25,13 @@ RSpec.describe CrochetParser, type: :model do
     end
 
     context "simple instruction" do
-      fit "returns correct stitch output for row" do
+      it "returns correct stitch output for row" do
         result = subject.parse_element("dc, sc, sl st to join")
         expect(result.length).to eq 3
         expect(result[0]).to be_instance_of(DoubleCrochet)
         expect(result[1]).to be_instance_of(SingleCrochet)
         expect(result[2]).to be_instance_of(Join)
+        expect(result[2].children[0]).to be_instance_of(SlipStitch)
       end
     end
   end

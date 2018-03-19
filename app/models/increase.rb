@@ -1,5 +1,7 @@
 # Decorator pattern
 class Increase < Stitch
+  attr_reader :children
+
   def initialize(children = [])
     @children = children
   end

@@ -1,5 +1,7 @@
 # is this a stitch, not really... what pattern works here?
 class Join < Stitch
+  attr_reader :children
+
   def initialize(children = [])
     @children = children
   end
