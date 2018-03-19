@@ -3,26 +3,35 @@
 require 'rails_helper'
 
 RSpec.describe CrochetParser, type: :model do
-   describe "#parse_element" do
-    context "simple instruction" do
-      subject { described_class.new("Dc, sc, sl st to join") }
-      it "returns correct stitch output for row" do
-        expect(subject.make).to eq "Dc sc sl st to join"
-      end
+  subject { described_class.new }
 
-      it "builds the correct stitch models" do
-        subject.get_stitches
-        expect(subject.stitches.count).to eq 4
-        expect(subject.stitches[0]).to be_kind_of(DoubleCrochet)
-        expect(subject.stitches[1]).to be_kind_of(SingleCrochet)
-        expect(subject.stitches[2]).to be_kind_of(SlipStitch)
-        expect(subject.stitches[3]).to be_kind_of(Join)
-        exp
+  describe "#parse_element" do
+    context "single stitch" do
+       it "returns correct stitch output for row" do
+        result = subject.parse_element("dc")
+        expect(result.length).to eq 1
+        expect(result[0]).to be_instance_of(DoubleCrochet)
       end
     end
-  end
 
-  describe "#find_content" do
-    it "returns up to end of repeat"
+    context "multiple basic stitches" do
+       it "returns correct stitch output for row" do
+        result = subject.parse_element("dc, sc, sc")
+        expect(result.length).to eq 3
+        expect(result[0]).to be_instance_of(DoubleCrochet)
+        expect(result[1]).to be_instance_of(SingleCrochet)
+        expect(result[2]).to be_instance_of(SingleCrochet)
+      end
+    end
+
+    context "simple instruction" do
+      fit "returns correct stitch output for row" do
+        result = subject.parse_element("dc, sc, sl st to join")
+        expect(result.length).to eq 3
+        expect(result[0]).to be_instance_of(DoubleCrochet)
+        expect(result[1]).to be_instance_of(SingleCrochet)
+        expect(result[2]).to be_instance_of(Join)
+      end
+    end
   end
 end

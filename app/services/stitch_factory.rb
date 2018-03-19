@@ -1,12 +1,16 @@
 class StitchFactory
-  def get_stitch(instruction)
+  def get_stitch(instruction, children = [])
     case instruction
-    when 'dc'
+    when DoubleCrochet.abbrev
       DoubleCrochet.new
-    when 'sc'
+    when SingleCrochet.abbrev
       SingleCrochet.new
-    when 'sl st'
+    when SlipStitch.abbrev
       SlipStitch.new
+    when Increase.abbrev
+      Increase.new(children)
+    when Join.abbrev
+      Join.new(children)
     else
       UnknownInstruction.new(instruction)
     end

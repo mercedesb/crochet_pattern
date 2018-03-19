@@ -17,6 +17,7 @@ class Row < Instruction
   end
 
   def make
+     # @instructions.map(&:make).join(' ')
     get_stitches
     row = ""
     @stitches.each do |stitch|

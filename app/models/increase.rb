@@ -1,11 +1,11 @@
 # Decorator pattern
 class Increase < Stitch
-  def initialize(stitch)
-    @stitch = stitch
+  def initialize(children = [])
+    @children = children
   end
 
   def make
-    "#{@stitch.make} #{self.class.abbrev}"
+    "#{@children.map(&:make).join(' ')} #{self.class.abbrev}"
   end
 
   def self.abbrev
@@ -13,6 +13,7 @@ class Increase < Stitch
   end
 
   def count
-    @stitch.count + 1
+    children_count = @children.sum(&:count)
+    children_count + 1
   end
 end
