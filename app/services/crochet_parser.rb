@@ -1,6 +1,6 @@
 class CrochetParser
-  def initialize
-    # @instructions_str = str.downcase
+  def initialize(instructions)
+    @instructions_str = instructions.downcase
     @stitch_factory = StitchFactory.new
   end
 
@@ -20,7 +20,9 @@ class CrochetParser
     /#{composite_stitch_abbrevs.join("|")}/
   end
 
-  # * Dc Inc * Repeat 2 times, sl st to join
+  def parse
+    parse_element(@instructions_str)
+  end
 
   def parse_element(inst)
     instructions = []
@@ -28,19 +30,17 @@ class CrochetParser
 
     until buffer.eos?
       current_instruction = buffer.scan_until(/#{Tokens::INSTRUCTION_DELIMITER}|$/)
-      next unless current_instruction.present?
       current_instruction = clean_instruction(current_instruction)
-      # * dc inc * repeat 2 times
-      binding.pry
-      if is_repeated_instruction(current_instruction)
-        puts 'oops'
-      elsif is_composite_stitch(current_instruction)
-        composite_stitch = parse_composite_stitch(current_instruction)
-        instructions << composite_stitch unless composite_stitch.nil?
 
-      elsif is_basic_stitch(current_instruction)
-        instructions << @stitch_factory.get_stitch(current_instruction)
+      if repeated_instruction?(current_instruction)
+        instructions << parse_repeated_instruction(current_instruction)
+      elsif composite_stitch?(current_instruction)
+        # composite_stitch = parse_composite_stitch(current_instruction)
+        # instructions << composite_stitch unless composite_stitch.nil?
+        instructions << parse_composite_stitch(current_instruction)
 
+      elsif basic_stitch?(current_instruction)
+        instructions << parse_basic_stitch(current_instruction)
       else # explicit unknown instruction
         instructions << @stitch_factory.get_stitch(current_instruction)
       end
@@ -52,12 +52,12 @@ class CrochetParser
     basic_stitch_abbrevs.include? inst
   end
 
-  def composite_stitch?(inst)
-    inst[composite_stitch_regex].present?
+  def parse_basic_stitch(inst)
+    @stitch_factory.get_stitch(inst)
   end
 
-  def repeated_instruction?(_inst)
-    false
+  def composite_stitch?(inst)
+    inst[composite_stitch_regex].present?
   end
 
   def parse_composite_stitch(inst)
@@ -74,14 +74,25 @@ class CrochetParser
     parsed_stitch
   end
 
+  def repeated_instruction?(inst)
+    inst[/#{Tokens::START_REPEAT}.+#{Tokens::END_REPEAT}/].present?
+  end
+
+  def parse_repeated_instruction(inst)
+    # get capture group
+    repeated = inst.match(/#{Tokens::START_REPEAT}(.+)#{Tokens::END_REPEAT}/)[1]
+    times = inst[/\d+/]
+    RepeatInstruction.new(times, parse_element(repeated))
+  end
+
   def clean_instruction(inst)
     inst.sub(Tokens::INSTRUCTION_DELIMITER, '').strip
   end
 end
 
 module Tokens
-  START_REPEAT = '[*({[]'.freeze
-  END_REPEAT = '[*)}]'.freeze
+  START_REPEAT = '[*({\[]'.freeze
+  END_REPEAT = '[*)}\]]'.freeze
   INSTRUCTION_DELIMITER = ','.freeze
 end
 
