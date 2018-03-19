@@ -1,5 +1,9 @@
 class SingleCrochet < Stitch
   def make
+    self.class.abbrev
+  end
+
+  def self.abbrev
     "sc"
   end
 

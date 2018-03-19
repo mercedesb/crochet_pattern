@@ -9,6 +9,12 @@ RSpec.describe Stitch, type: :model do
     end
   end
 
+  describe "#abbrev" do
+    it "raises a NotImplementedError" do
+      expect { Stitch.abbrev }.to raise_error(NotImplementedError)
+    end
+  end
+
   describe "#count" do
     it "raises a NotImplementedError" do
       expect { subject.count }.to raise_error(NotImplementedError)

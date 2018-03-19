@@ -5,7 +5,11 @@ class Join < Stitch
   end
 
   def make
-    "#{@stitch.make} to join"
+    "#{@stitch.make} #{self.class.abbrev}"
+  end
+
+  def self.abbrev
+    "to join"
   end
 
   def count

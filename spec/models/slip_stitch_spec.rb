@@ -9,6 +9,12 @@ RSpec.describe SlipStitch, type: :model do
     end
   end
 
+  describe "#abbrev" do
+    it "returns sl st" do
+      expect(SlipStitch.abbrev).to eq 'sl st'
+    end
+  end
+
   describe "#count" do
     it "returns 1" do
       expect(subject.count).to eq 1

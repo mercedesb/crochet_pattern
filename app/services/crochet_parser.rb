@@ -1,8 +1,8 @@
 class CrochetParser
   def initialize(str)
-    @buffer = StringScanner.new(str)
+    @instructions_str = str
     @instructions = []
-    parse
+    @stitch_factory = StitchFactory.new
   end
 
   def parse
@@ -12,16 +12,30 @@ class CrochetParser
     end
   end
 
+  # Dc, sc, sl st to join
+  # DoubleCrochet, SingleCrochet, Join(SlipStitch)
+
   def parse_element
-    if @buffer.peek(1).match(START_REPEAT)
-      @buffer.getch
-      @instructions << find_content
-      # look ahead to how many times to repeat
-    else
-      @instructions << @
+    buffer = StringScanner.new(str)
+
+    while !buffer.eos?
+      current_instruction = buffer.check_until(/[,]?$/)
+      if (current_instruction.present?)
+
+        @instructions << @stitch_factory.get_stitch(current_instruction.sub(/,/), '')
+      # else
+      # if buffer.check_until(START_REPEAT)
+      # if buffer.peek(1).match(START_REPEAT)
+      #   buffer.getch
+      #   @instructions << find_content
+      #   # look ahead to how many times to repeat
+      # else
+      #   @instructions << buffer.scan_until(" ")
+      end
     end
   end
 
+  #fix this
   def skip_spaces
     @buffer.skip(/\s+/)
   end
@@ -32,8 +46,12 @@ class CrochetParser
   end
 end
 
-module Tokens
-  START_REPEAT = /[*({[]/
-  END_REPEAT = /[*)}]/
-  REPEAT_NUMBER_DELIMITER = /,/
+# module Tokens
+#   START_REPEAT = /[*({[]/
+#   END_REPEAT = /[*)}]/
+#   INSTRUCTION_DELIMITER = /,/
+# end
+
+module Stitches
+
 end

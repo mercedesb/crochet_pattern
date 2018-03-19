@@ -9,6 +9,12 @@ RSpec.describe SingleCrochet, type: :model do
     end
   end
 
+  describe "#abbrev" do
+    it "returns sc" do
+      expect(SingleCrochet.abbrev).to eq 'sc'
+    end
+  end
+
   describe "#count" do
     it "returns 1" do
       expect(subject.count).to eq 1

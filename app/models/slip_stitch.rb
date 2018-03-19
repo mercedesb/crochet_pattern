@@ -1,5 +1,9 @@
 class SlipStitch < Stitch
   def make
+    self.class.abbrev
+  end
+
+  def self.abbrev
     "sl st"
   end
 

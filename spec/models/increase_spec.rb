@@ -9,6 +9,12 @@ RSpec.describe Increase, type: :model do
     end
   end
 
+  describe "#abbrev" do
+    it "returns inc" do
+      expect(Increase.abbrev).to eq 'inc'
+    end
+  end
+
   describe "#count" do
     it "returns 2" do
       expect(subject.count).to eq 2

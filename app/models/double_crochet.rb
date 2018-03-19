@@ -1,5 +1,9 @@
 class DoubleCrochet < Stitch
   def make
+    self.class.abbrev
+  end
+
+  def self.abbrev
     "dc"
   end
 

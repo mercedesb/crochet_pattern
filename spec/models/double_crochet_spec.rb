@@ -9,6 +9,12 @@ RSpec.describe DoubleCrochet, type: :model do
     end
   end
 
+  describe "#abbrev" do
+    it "returns dc" do
+      expect(DoubleCrochet.abbrev).to eq 'dc'
+    end
+  end
+
   describe "#count" do
     it "returns 1" do
       expect(subject.count).to eq 1

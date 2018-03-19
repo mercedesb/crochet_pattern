@@ -5,7 +5,11 @@ class Increase < Stitch
   end
 
   def make
-    "#{@stitch.make} inc"
+    "#{@stitch.make} #{self.class.abbrev}"
+  end
+
+  def self.abbrev
+    "inc"
   end
 
   def count

@@ -9,6 +9,12 @@ RSpec.describe Join, type: :model do
     end
   end
 
+  describe "#abbrev" do
+    it "returns to join" do
+      expect(Join.abbrev).to eq 'to join'
+    end
+  end
+
   describe "#count" do
     it "returns -1" do
       expect(subject.count).to eq 0
