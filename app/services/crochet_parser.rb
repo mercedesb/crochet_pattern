@@ -1,7 +1,33 @@
+# Parse string instructions into Stitches
 class CrochetParser
   def initialize(instructions)
     @instructions_str = instructions.downcase
     @stitch_factory = StitchFactory.new
+  end
+
+  def parse
+    parse_element(@instructions_str)
+  end
+
+  def parse_element(inst)
+    instructions = []
+    buffer = StringScanner.new(inst)
+
+    until buffer.eos?
+      current_instruction = buffer.scan_until(/#{Tokens::INSTRUCTION_DELIMITER}|$/)
+      current_instruction = clean_instruction(current_instruction)
+
+      instructions << if repeated_instruction?(current_instruction)
+                        parse_repeated_instruction(current_instruction)
+                      elsif composite_stitch?(current_instruction)
+                        parse_composite_stitch(current_instruction)
+                      elsif basic_stitch?(current_instruction)
+                        parse_basic_stitch(current_instruction)
+                      else # explicit unknown instruction
+                        @stitch_factory.get_stitch(current_instruction)
+                      end
+    end
+    instructions
   end
 
   def basic_stitch_abbrevs
@@ -18,34 +44,6 @@ class CrochetParser
 
   def composite_stitch_regex
     /#{composite_stitch_abbrevs.join("|")}/
-  end
-
-  def parse
-    parse_element(@instructions_str)
-  end
-
-  def parse_element(inst)
-    instructions = []
-    buffer = StringScanner.new(inst)
-
-    until buffer.eos?
-      current_instruction = buffer.scan_until(/#{Tokens::INSTRUCTION_DELIMITER}|$/)
-      current_instruction = clean_instruction(current_instruction)
-
-      if repeated_instruction?(current_instruction)
-        instructions << parse_repeated_instruction(current_instruction)
-      elsif composite_stitch?(current_instruction)
-        # composite_stitch = parse_composite_stitch(current_instruction)
-        # instructions << composite_stitch unless composite_stitch.nil?
-        instructions << parse_composite_stitch(current_instruction)
-
-      elsif basic_stitch?(current_instruction)
-        instructions << parse_basic_stitch(current_instruction)
-      else # explicit unknown instruction
-        instructions << @stitch_factory.get_stitch(current_instruction)
-      end
-    end
-    instructions
   end
 
   def basic_stitch?(inst)
@@ -94,17 +92,4 @@ module Tokens
   START_REPEAT = '[*({\[]'.freeze
   END_REPEAT = '[*)}\]]'.freeze
   INSTRUCTION_DELIMITER = ','.freeze
-end
-
-module Stitches
-  BASIC = %w[
-    SingleCrochet
-    DoubleCrochet
-    SlipStitch
-  ].freeze
-
-  COMPOSITE = %w[
-    Increase
-    Join
-  ].freeze
 end

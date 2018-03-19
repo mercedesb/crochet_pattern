@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Join, type: :model do
-  subject { described_class.new(SlipStitch.new) }
+  subject { described_class.new([SlipStitch.new]) }
   describe "#make" do
     it "returns to join" do
       expect(subject.make).to eq 'sl st to join'

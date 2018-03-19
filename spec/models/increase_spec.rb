@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Increase, type: :model do
-  subject { described_class.new(DoubleCrochet.new) }
+  subject { described_class.new([DoubleCrochet.new]) }
   describe "#make" do
     it "returns inc" do
       expect(subject.make).to eq 'dc inc'
