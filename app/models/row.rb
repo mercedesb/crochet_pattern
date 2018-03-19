@@ -5,8 +5,13 @@ class Row < Instruction
   end
 
   def make
-    @stitches = get_stitches
+    @stitches ||= get_stitches
     @stitches.map(&:make).join(' ')
+  end
+
+  def stitch_count
+    @stitches ||= get_stitches
+    @stitches.sum(&:count)
   end
 
   def get_stitches
