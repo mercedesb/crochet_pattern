@@ -7,14 +7,12 @@ class Parsers::RepeatInstructionParser < Parsers::BaseParser
   def parse
     return unless self.class.parsable?(@instructions)
 
-    instructions = []
      # get capture group
     repeated_instructions = @instructions.match(self.class.repeated_regex)[1]
     repeat_times = @instructions[digit_regex].to_i
 
     parser = ParserFactory.new.get_parser(repeated_instructions)
-    instructions << parser.parse
-    RepeatInstruction.new(repeat_times, instructions.flatten)
+    RepeatInstruction.new(repeat_times, [*parser.parse].flatten)
   end
 
   def self.parsable?(instruction)
