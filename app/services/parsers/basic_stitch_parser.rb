@@ -15,6 +15,7 @@ class Parsers::BasicStitchParser < Parsers::BaseParser
   end
 
   private
+
   def self.basic_stitch_abbrevs
     @basic_stitches ||= Stitches::BASIC.map do |stitch|
       stitch.constantize.abbrev

@@ -4,10 +4,10 @@ class DoubleCrochet < BaseStitch
   end
 
   def self.abbrev
-    "dc"
+    'dc'
   end
 
-   def count
+  def count
     1
-  end
+ end
 end

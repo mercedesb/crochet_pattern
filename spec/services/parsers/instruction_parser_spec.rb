@@ -3,10 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Parsers::InstructionParser, type: :model do
-
   describe '#parse' do
     context 'single stitch' do
-    subject { described_class.new('dc') }
+      subject { described_class.new('dc') }
       it 'returns correct stitch output for row' do
         result = subject.parse
         expect(result.length).to eq 1
@@ -15,7 +14,7 @@ RSpec.describe Parsers::InstructionParser, type: :model do
     end
 
     context 'multiple basic stitches' do
-    subject { described_class.new('dc, sc, sc') }
+      subject { described_class.new('dc, sc, sc') }
       it 'returns correct stitch output for row' do
         result = subject.parse
         expect(result.length).to eq 3
@@ -26,7 +25,7 @@ RSpec.describe Parsers::InstructionParser, type: :model do
     end
 
     context 'simple instruction' do
-    subject { described_class.new('dc, sc, sl st to join') }
+      subject { described_class.new('dc, sc, sl st to join') }
       it 'returns correct stitch output for row' do
         result = subject.parse
         expect(result.length).to eq 3
@@ -38,7 +37,7 @@ RSpec.describe Parsers::InstructionParser, type: :model do
     end
 
     context 'repeated instruction' do
-    subject { described_class.new('* dc inc * repeat 2 times, sl st to join') }
+      subject { described_class.new('* dc inc * repeat 2 times, sl st to join') }
       it 'returns correct stitch output for row' do
         result = subject.parse
         expect(result.length).to eq 2

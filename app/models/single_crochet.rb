@@ -4,7 +4,7 @@ class SingleCrochet < BaseStitch
   end
 
   def self.abbrev
-    "sc"
+    'sc'
   end
 
   def count

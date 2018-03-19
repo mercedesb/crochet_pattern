@@ -7,7 +7,7 @@ class Parsers::RepeatInstructionParser < Parsers::BaseParser
   def parse
     return unless self.class.parsable?(@instructions)
 
-     # get capture group
+    # get capture group
     repeated_instructions = @instructions.match(self.class.repeated_regex)[1]
     repeat_times = @instructions[digit_regex].to_i
 
@@ -28,6 +28,4 @@ class Parsers::RepeatInstructionParser < Parsers::BaseParser
   def digit_regex
     /\d+/
   end
-
-
 end

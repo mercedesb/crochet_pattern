@@ -11,7 +11,7 @@ class Increase < BaseStitch
   end
 
   def self.abbrev
-    "inc"
+    'inc'
   end
 
   def count

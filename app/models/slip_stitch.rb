@@ -4,7 +4,7 @@ class SlipStitch < BaseStitch
   end
 
   def self.abbrev
-    "sl st"
+    'sl st'
   end
 
   def count

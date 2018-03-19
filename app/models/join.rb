@@ -11,7 +11,7 @@ class Join < BaseStitch
   end
 
   def self.abbrev
-    "to join"
+    'to join'
   end
 
   def count
