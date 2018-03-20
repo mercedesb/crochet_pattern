@@ -65,7 +65,7 @@ RSpec.describe Parsers::InstructionParser, type: :model do
 
     context 'with unknown instruction at end' do
       subject { described_class.new('Sc 9, up side of heel') }
-      fit 'returns correct stitch output for row' do
+      it 'returns correct stitch output for row' do
         result = subject.parse
         expect(result.length).to eq 2
         expect(result[0]).to be_instance_of(RepeatInstruction)
