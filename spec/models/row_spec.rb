@@ -18,4 +18,20 @@ RSpec.describe Row, type: :model do
       end
     end
   end
+
+  describe '#stitch_count' do
+    context 'simple instruction' do
+      subject { described_class.new('Dc, sc, sl st to join') }
+      it 'returns correct stitch couont' do
+        expect(subject.stitch_count).to eq 2
+      end
+    end
+
+    context 'complex instruction' do
+      subject { described_class.new('* Dc Inc * Repeat 2 times, sl st to join ') }
+      it 'returns correct stitch couont' do
+        expect(subject.stitch_count).to eq 4
+      end
+    end
+  end
 end
