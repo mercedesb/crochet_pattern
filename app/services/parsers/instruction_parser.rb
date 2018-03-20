@@ -8,9 +8,18 @@ class Parsers::InstructionParser < Parsers::BaseParser
 
   def parse
     instructions = []
-
     until @buffer.eos?
-      current_instruction = @buffer.scan_until(/#{InstructionTokens::INSTRUCTION_DELIMITER}|$/)
+      current_instruction = ""
+      skip_spaces
+
+      if /#{InstructionTokens::START_REPEAT}/ =~ @buffer.peek(1)
+        current_instruction += @buffer.getch
+        current_instruction += @buffer.scan_until(/#{InstructionTokens::END_REPEAT}|$/)
+        current_instruction += @buffer.scan_until(/#{InstructionTokens::INSTRUCTION_DELIMITER}|$/)
+      else
+        current_instruction = @buffer.scan_until(/#{InstructionTokens::INSTRUCTION_DELIMITER}|$/)
+      end
+
       current_instruction = clean_instruction(current_instruction)
       parser = ParserFactory.new.get_parser(current_instruction)
       instructions << if parser.nil?
@@ -28,7 +37,11 @@ class Parsers::InstructionParser < Parsers::BaseParser
 
   private
 
+  def skip_spaces
+    @buffer.skip(/\s+/)
+  end
+
   def clean_instruction(inst)
-    inst.sub(InstructionTokens::INSTRUCTION_DELIMITER, '').strip
+    inst.sub(/#{InstructionTokens::INSTRUCTION_DELIMITER}$/, '').strip
   end
 end

@@ -24,6 +24,16 @@ RSpec.describe Parsers::BasicStitchParser, type: :model do
       end
     end
 
+    context 'with repeated parsable instruction' do
+      subject { described_class.new('Sc 27') }
+      it 'returns corrected parsed stitch object(s)' do
+        result = subject.parse
+        expect(result).to be_instance_of(RepeatInstruction)
+        expect(result.repeat).to eq 27
+        expect(result.children[0]).to be_instance_of(SingleCrochet)
+      end
+    end
+
     context 'with a non-parsable instruction' do
       subject { described_class.new('cant be parsed') }
       it 'returns nil' do

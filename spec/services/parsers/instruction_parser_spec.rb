@@ -48,5 +48,19 @@ RSpec.describe Parsers::InstructionParser, type: :model do
         expect(result[1].children[0]).to be_instance_of(SlipStitch)
       end
     end
+
+    context 'with unkown instruction' do
+      subject { described_class.new('In heel color, * Sc 27, Turn * Repeat 7 times') }
+      it 'returns correct stitch output for row' do
+        result = subject.parse
+        expect(result.length).to eq 2
+        expect(result[0]).to be_instance_of(UnknownInstruction)
+        expect(result[1]).to be_instance_of(RepeatInstruction)
+        expect(result[1].repeat).to eq 7
+        expect(result[1].children[0]).to be_instance_of(RepeatInstruction)
+        expect(result[1].children[0].repeat).to eq 27
+        expect(result[1].children[0].children[0]).to be_instance_of(SingleCrochet)
+      end
+    end
   end
 end

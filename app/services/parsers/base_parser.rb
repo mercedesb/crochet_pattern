@@ -7,4 +7,10 @@ class Parsers::BaseParser
   def self.parsable?(_inst)
     raise NotImplementedError
   end
+
+  protected
+
+  def self.digit_regex
+    /\d+/
+  end
 end

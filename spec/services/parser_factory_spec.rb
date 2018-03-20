@@ -24,8 +24,8 @@ RSpec.describe ParserFactory, type: :model do
     end
 
     describe 'general instruction' do
-      it 'returns an InstructionParser obj' do
-        expect(subject.get_parser('Unknown instruction')).to be_instance_of(Parsers::InstructionParser)
+      it 'returns nil' do
+        expect(subject.get_parser('Unknown instruction')).to be_nil
       end
     end
   end
