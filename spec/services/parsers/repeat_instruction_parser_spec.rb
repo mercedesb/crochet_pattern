@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'repeat_instruction_parser'
 
 RSpec.describe Parsers::RepeatInstructionParser, type: :model do
   describe '#parsable?' do

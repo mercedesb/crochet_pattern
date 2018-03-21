@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'basic_stitch_parser'
 
 RSpec.describe Parsers::BasicStitchParser, type: :model do
   describe '#parsable?' do

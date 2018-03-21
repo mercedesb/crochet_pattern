@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'join'
+require 'slip_stitch'
 
 RSpec.describe Join, type: :model do
   subject { described_class.new([SlipStitch.new]) }

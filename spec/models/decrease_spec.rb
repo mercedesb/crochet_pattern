@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'decrease'
+require 'single_crochet'
 
 RSpec.describe Decrease, type: :model do
   subject { described_class.new([SingleCrochet.new]) }

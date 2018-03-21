@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'unknown_instruction'
 
 RSpec.describe UnknownInstruction, type: :model do
   subject { described_class.new('Repeat 3 times') }

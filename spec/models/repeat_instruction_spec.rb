@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'increase'
+require 'double_crochet'
+require 'repeat_instruction'
 
 RSpec.describe RepeatInstruction, type: :model do
   subject { described_class.new(3, [Increase.new([DoubleCrochet.new])]) }

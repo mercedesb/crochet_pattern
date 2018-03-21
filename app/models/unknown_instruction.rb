@@ -1,3 +1,5 @@
+require 'instruction'
+
 class UnknownInstruction < Instruction
   def initialize(instruction)
     @instruction = instruction

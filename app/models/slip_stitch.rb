@@ -1,3 +1,5 @@
+require 'base_stitch'
+
 class SlipStitch < BaseStitch
   def make
     self.class.abbrev

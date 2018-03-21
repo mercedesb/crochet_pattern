@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'basic_stitch_parser'
+require 'composite_stitch_parser'
+require 'repeat_instruction_parser'
+require 'instruction_parser'
+require 'parser_factory'
 
 RSpec.describe ParserFactory, type: :model do
   subject { described_class.new }

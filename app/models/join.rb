@@ -1,3 +1,5 @@
+require 'base_stitch'
+
 # is this a stitch, not really... what pattern works here?
 class Join < BaseStitch
   attr_reader :children

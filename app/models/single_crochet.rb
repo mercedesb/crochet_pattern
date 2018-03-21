@@ -1,3 +1,5 @@
+require 'base_stitch'
+
 class SingleCrochet < BaseStitch
   def make
     self.class.abbrev

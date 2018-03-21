@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'row'
 
 RSpec.describe Row, type: :model do
   describe '#make' do

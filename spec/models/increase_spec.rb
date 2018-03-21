@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'double_crochet'
+require 'increase'
 
 RSpec.describe Increase, type: :model do
   subject { described_class.new([DoubleCrochet.new]) }

@@ -1,3 +1,5 @@
+require 'base_stitch'
+
 class Row < Instruction
   def initialize(instructions)
     @instructions = instructions

@@ -1,3 +1,5 @@
+require 'base_stitch'
+
 class RepeatInstruction < BaseStitch
   attr_reader :repeat
   attr_reader :children

@@ -1,3 +1,5 @@
+require 'base_stitch'
+
 # Decorator pattern
 class Decrease < BaseStitch
   attr_reader :children

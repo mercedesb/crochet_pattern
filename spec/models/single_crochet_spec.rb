@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'single_crochet'
 
 RSpec.describe SingleCrochet, type: :model do
   subject { described_class.new }

@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'double_crochet'
+require 'single_crochet'
+require 'slip_stitch'
+require 'increase'
+require 'join'
+require 'stitch_factory'
 
 RSpec.describe StitchFactory, type: :model do
   subject { described_class.new }
