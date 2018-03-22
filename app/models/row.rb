@@ -1,4 +1,4 @@
-require 'base_stitch'
+require 'parser_factory'
 
 class Row < Instruction
   def initialize(instructions)
