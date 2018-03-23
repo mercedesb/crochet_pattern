@@ -1,9 +1,9 @@
-require 'double_crochet'
-require 'single_crochet'
-require 'slip_stitch'
-require 'increase'
-require 'join'
-require 'unknown_instruction'
+require "double_crochet"
+require "single_crochet"
+require "slip_stitch"
+require "increase"
+require "join"
+require "unknown_instruction"
 
 class StitchFactory
   def get_stitch(instruction, children = [])

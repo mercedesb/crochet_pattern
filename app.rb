@@ -1,5 +1,5 @@
-require 'rubygems'
-require 'bundler'
+require "rubygems"
+require "bundler"
 
 Bundler.require
 
@@ -8,5 +8,4 @@ module Crochet
     configure do
     end
   end
-
 end

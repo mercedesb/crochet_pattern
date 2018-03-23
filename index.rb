@@ -1,10 +1,9 @@
 # index.rb
-require 'sinatra'
+require "sinatra"
 
-get '/' do
-  'Hello world!'
+get "/" do
+  "Hello world!"
 end
 
-get '/pattern' do
-
+get "/pattern" do
 end

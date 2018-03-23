@@ -1,8 +1,8 @@
-require 'base_parser'
-require 'single_crochet'
-require 'double_crochet'
-require 'slip_stitch'
-require 'stitch_factory'
+require "base_parser"
+require "single_crochet"
+require "double_crochet"
+require "slip_stitch"
+require "stitch_factory"
 
 module Parsers
   # Basic Stitch Parser
@@ -19,7 +19,7 @@ module Parsers
       basic_stitch = @stitch_factory.get_stitch(stitch_to_parse)
       repeat_times = @instructions[self.class.digit_regex].to_i
 
-      if (repeat_times > 1)
+      if repeat_times > 1
         RepeatInstruction.new(repeat_times, [*basic_stitch])
       else
         basic_stitch

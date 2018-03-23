@@ -1,9 +1,9 @@
-require 'base_parser'
-require 'instruction_tokens'
-require 'repeat_instruction'
+require "base_parser"
+require "instruction_tokens"
+require "repeat_instruction"
 
 module Parsers
-# Repeat Instruction Parser
+  # Repeat Instruction Parser
   class RepeatInstructionParser < Parsers::BaseParser
     def initialize(instructions)
       @instructions = instructions.downcase.strip

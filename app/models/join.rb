@@ -1,4 +1,4 @@
-require 'base_stitch'
+require "base_stitch"
 
 # is this a stitch, not really... what pattern works here?
 class Join < BaseStitch
@@ -13,7 +13,7 @@ class Join < BaseStitch
   end
 
   def self.abbrev
-    'to join'
+    "to join"
   end
 
   def count

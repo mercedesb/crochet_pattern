@@ -1,4 +1,4 @@
-require 'base_stitch'
+require "base_stitch"
 
 # Decorator pattern
 class Decrease < BaseStitch
@@ -13,7 +13,7 @@ class Decrease < BaseStitch
   end
 
   def self.abbrev
-    'dec'
+    "dec"
   end
 
   def count

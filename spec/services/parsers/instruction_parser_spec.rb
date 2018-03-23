@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'instruction_parser'
+require "spec_helper"
+require "instruction_parser"
 
 RSpec.describe Parsers::InstructionParser, type: :model do
-  describe '#parse' do
-    context 'single stitch' do
-      subject { described_class.new('dc') }
-      it 'returns correct stitch output for row' do
+  describe "#parse" do
+    context "single stitch" do
+      subject { described_class.new("dc") }
+      it "returns correct stitch output for row" do
         result = subject.parse
         expect(result.length).to eq 1
         expect(result[0]).to be_instance_of(DoubleCrochet)
       end
     end
 
-    context 'multiple basic stitches' do
-      subject { described_class.new('dc, sc, sc') }
-      it 'returns correct stitch output for row' do
+    context "multiple basic stitches" do
+      subject { described_class.new("dc, sc, sc") }
+      it "returns correct stitch output for row" do
         result = subject.parse
         expect(result.length).to eq 3
         expect(result[0]).to be_instance_of(DoubleCrochet)
@@ -25,9 +25,9 @@ RSpec.describe Parsers::InstructionParser, type: :model do
       end
     end
 
-    context 'simple instruction' do
-      subject { described_class.new('dc, sc, sl st to join') }
-      it 'returns correct stitch output for row' do
+    context "simple instruction" do
+      subject { described_class.new("dc, sc, sl st to join") }
+      it "returns correct stitch output for row" do
         result = subject.parse
         expect(result.length).to eq 3
         expect(result[0]).to be_instance_of(DoubleCrochet)
@@ -37,9 +37,9 @@ RSpec.describe Parsers::InstructionParser, type: :model do
       end
     end
 
-    context 'repeated instruction' do
-      subject { described_class.new('* dc inc * repeat 2 times, sl st to join') }
-      it 'returns correct stitch output for row' do
+    context "repeated instruction" do
+      subject { described_class.new("* dc inc * repeat 2 times, sl st to join") }
+      it "returns correct stitch output for row" do
         result = subject.parse
         expect(result.length).to eq 2
         expect(result[0]).to be_instance_of(RepeatInstruction)
@@ -50,9 +50,9 @@ RSpec.describe Parsers::InstructionParser, type: :model do
       end
     end
 
-    context 'with unknown instruction at beginning' do
-      subject { described_class.new('In heel color, * Sc 27, Turn * Repeat 7 times') }
-      it 'returns correct stitch output for row' do
+    context "with unknown instruction at beginning" do
+      subject { described_class.new("In heel color, * Sc 27, Turn * Repeat 7 times") }
+      it "returns correct stitch output for row" do
         result = subject.parse
         expect(result.length).to eq 2
         expect(result[0]).to be_instance_of(UnknownInstruction)
@@ -64,9 +64,9 @@ RSpec.describe Parsers::InstructionParser, type: :model do
       end
     end
 
-    context 'with unknown instruction at end' do
-      subject { described_class.new('Sc 9, up side of heel') }
-      it 'returns correct stitch output for row' do
+    context "with unknown instruction at end" do
+      subject { described_class.new("Sc 9, up side of heel") }
+      it "returns correct stitch output for row" do
         result = subject.parse
         expect(result.length).to eq 2
         expect(result[0]).to be_instance_of(RepeatInstruction)

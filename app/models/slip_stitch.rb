@@ -1,4 +1,4 @@
-require 'base_stitch'
+require "base_stitch"
 
 class SlipStitch < BaseStitch
   def make
@@ -6,7 +6,7 @@ class SlipStitch < BaseStitch
   end
 
   def self.abbrev
-    'sl st'
+    "sl st"
   end
 
   def count

@@ -1,4 +1,4 @@
-require 'base_stitch'
+require "base_stitch"
 
 class RepeatInstruction < BaseStitch
   attr_reader :repeat
@@ -12,9 +12,9 @@ class RepeatInstruction < BaseStitch
   def make
     instructions = []
 
-    @repeat.times { |_i| instructions << @children.map(&:make).join(' ') }
+    @repeat.times { |_i| instructions << @children.map(&:make).join(" ") }
 
-    instructions.join(' ')
+    instructions.join(" ")
   end
 
   def count

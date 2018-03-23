@@ -1,4 +1,4 @@
-require 'base_stitch'
+require "base_stitch"
 
 class SingleCrochet < BaseStitch
   def make
@@ -6,7 +6,7 @@ class SingleCrochet < BaseStitch
   end
 
   def self.abbrev
-    'sc'
+    "sc"
   end
 
   def count

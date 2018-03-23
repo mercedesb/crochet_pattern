@@ -1,7 +1,7 @@
-require 'base_parser'
-require 'increase'
-require 'join'
-require 'stitches'
+require "base_parser"
+require "increase"
+require "join"
+require "stitches"
 
 module Parsers
   # Composite Stitch Parser

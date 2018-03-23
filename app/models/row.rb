@@ -1,4 +1,4 @@
-require 'parser_factory'
+require "parser_factory"
 
 class Row < Instruction
   def initialize(instructions)
@@ -8,7 +8,7 @@ class Row < Instruction
 
   def make
     @stitches ||= get_stitches
-    @stitches.map(&:make).join(' ')
+    @stitches.map(&:make).join(" ")
   end
 
   def stitch_count

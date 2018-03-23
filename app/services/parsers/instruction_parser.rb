@@ -1,5 +1,5 @@
-require 'base_parser'
-require 'parser_factory'
+require "base_parser"
+require "parser_factory"
 
 module Parsers
   # General Instruction Parser
@@ -46,7 +46,7 @@ module Parsers
     end
 
     def clean_instruction(inst)
-      inst.sub(/#{InstructionTokens::INSTRUCTION_DELIMITER}$/, '').strip
+      inst.sub(/#{InstructionTokens::INSTRUCTION_DELIMITER}$/, "").strip
     end
   end
 end
