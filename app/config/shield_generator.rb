@@ -1,5 +1,4 @@
-require "simplecov"
-require "generic_http_client"
+require "./app/config/generic_http_client"
 
 class ShieldGenerator
   module Colors
@@ -26,9 +25,9 @@ class ShieldGenerator
   end
 
   def write_shield(subject, status, color = Colors::LIGHT_GRAY)
-    url = "#{base_url}}#{subject}-#{status}-#{color}.svg"
+    url = "#{base_url}#{subject}-#{status}-#{color}.svg"
     response = @shield_client.get(url)
-    File.open(shield_location, "w") do |file|
+    File.open(shield_location(subject), "w") do |file|
       file.write response.body
     end
   end
@@ -39,7 +38,8 @@ class ShieldGenerator
     "https://img.shields.io/badge/"
   end
 
-  def shield_location
-    "shields/coverage.svg"
+  def shield_location(subject)
+    "shields/#{subject}.svg"
   end
 end
+
